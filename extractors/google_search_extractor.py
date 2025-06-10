@@ -5,6 +5,7 @@ Google Search-based email extractor.
 import requests
 import re
 import time
+import os
 from typing import List, Dict, Any
 from urllib.parse import quote
 import trafilatura
@@ -21,67 +22,214 @@ class GoogleSearchExtractor(BaseExtractor):
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         })
+        self.google_api_key = os.getenv("GOOGLE_API_KEY", "")
+        self.google_cse_id = os.getenv("GOOGLE_CSE_ID", "")
+        self.google_search_url = "https://www.googleapis.com/customsearch/v1"
         
     def extract_emails_for_role(self, role: str, max_results: int = 10) -> List[Dict[str, Any]]:
-        """Extract emails for a role using Google search."""
+        """Extract emails for a role using professional directory searches."""
         leads = []
         
         try:
-            # Search for contact pages and directories
-            search_queries = [
-                f'"{role}" email contact',
-                f'"{role}" site:linkedin.com',
-                f'"{role}" contact information',
-                f'"{role}" directory email'
+            # Search professional business directories for authentic contact information
+            directory_queries = [
+                f'"{role}" site:yellowpages.com contact email',
+                f'"{role}" site:manta.com email',
+                f'"{role}" site:bizapedia.com contact',
+                f'"{role}" site:whitepages.com business email',
+                f'"{role}" contact page email address'
             ]
             
-            for query in search_queries:
+            for query in directory_queries:
                 if len(leads) >= max_results:
                     break
                     
                 query_leads = self._search_google(query, role)
                 leads.extend(query_leads)
-                time.sleep(1)  # Rate limiting
+                time.sleep(2)  # Respectful rate limiting
                 
         except Exception as e:
-            self.logger.error(f"Error in Google search extraction for {role}: {e}")
+            self.logger.error(f"Error in directory search extraction for {role}: {e}")
         
         return leads[:max_results]
     
     def _search_google(self, query: str, role: str) -> List[Dict[str, Any]]:
-        """Perform Google search and extract emails from results."""
+        """Use Google Custom Search API to find authentic contact information."""
         leads = []
         
+        if not self.google_api_key or not self.google_cse_id:
+            self.logger.error("Google API credentials not configured")
+            return leads
+        
         try:
-            # Use a public search API or scrape Google results
-            # Note: In production, you should use Google Custom Search API
-            search_url = f"https://www.google.com/search?q={quote(query)}&num=10"
+            # Search for business directories and professional websites
+            search_queries = [
+                f'"{role}" site:yellowpages.com email contact',
+                f'"{role}" site:manta.com contact email',
+                f'"{role}" site:whitepages.com business email',
+                f'"{role}" contact information email address',
+                f'"{role}" professional services contact email'
+            ]
             
-            response = self.session.get(search_url)
-            response.raise_for_status()
-            
-            # Extract URLs from search results
-            urls = re.findall(r'href="(https?://[^"]+)"', response.text)
-            
-            # Filter and process URLs
-            for url in urls[:5]:  # Limit to first 5 URLs
+            for search_query in search_queries[:3]:  # Limit API calls
                 try:
-                    if 'google.com' in url or 'youtube.com' in url:
-                        continue
-                        
-                    page_leads = self._extract_emails_from_page(url, role)
-                    leads.extend(page_leads)
+                    self.logger.info(f"Searching Google for: {search_query}")
                     
-                    if len(leads) >= 5:  # Limit per query
+                    # Make API request to Google Custom Search
+                    params = {
+                        'key': self.google_api_key,
+                        'cx': self.google_cse_id,
+                        'q': search_query,
+                        'num': 5  # Number of results per query
+                    }
+                    
+                    response = self.session.get(self.google_search_url, params=params, timeout=15)
+                    response.raise_for_status()
+                    
+                    search_results = response.json()
+                    
+                    # Process search results
+                    if 'items' in search_results:
+                        for item in search_results['items']:
+                            try:
+                                url = item.get('link', '')
+                                snippet = item.get('snippet', '')
+                                title = item.get('title', '')
+                                
+                                # Extract emails from page content
+                                page_leads = self._extract_emails_from_page(url, role)
+                                leads.extend(page_leads)
+                                
+                                # Also check snippet for emails
+                                snippet_leads = self._extract_emails_from_snippet(snippet, role, url, title)
+                                leads.extend(snippet_leads)
+                                
+                                if len(leads) >= 5:  # Limit per query
+                                    break
+                                    
+                            except Exception as e:
+                                self.logger.warning(f"Error processing search result: {e}")
+                                continue
+                    
+                    if len(leads) >= 10:  # Overall limit
                         break
                         
+                    time.sleep(1)  # API rate limiting
+                    
                 except Exception as e:
-                    self.logger.warning(f"Error processing URL {url}: {e}")
+                    self.logger.warning(f"Error with Google search query '{search_query}': {e}")
                     continue
                     
         except Exception as e:
-            self.logger.error(f"Error in Google search for query '{query}': {e}")
+            self.logger.error(f"Error in Google Custom Search for query '{query}': {e}")
         
+        return leads
+    
+    def _extract_emails_from_snippet(self, snippet: str, role: str, url: str, title: str) -> List[Dict[str, Any]]:
+        """Extract emails from Google search snippet."""
+        leads = []
+        
+        try:
+            # Find email addresses in the snippet
+            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+            emails = re.findall(email_pattern, snippet)
+            
+            for email in emails:
+                email = self.clean_email(email)
+                if email and self._is_professional_email(email):
+                    # Try to extract name from snippet context
+                    name = self._extract_name_from_context(snippet, email, role)
+                    company = self._extract_company_from_context(snippet, email)
+                    
+                    lead = {
+                        'name': name or 'Professional Contact',
+                        'email': email,
+                        'role': role,
+                        'source': 'Google Search',
+                        'profile_url': url,
+                        'company': company or 'Unknown Company'
+                    }
+                    leads.append(lead)
+                    
+        except Exception as e:
+            self.logger.warning(f"Error extracting emails from snippet: {e}")
+            
+        return leads
+    
+    def _search_contact_pages(self, role: str) -> List[Dict[str, Any]]:
+        """Search for professional contact pages."""
+        leads = []
+        
+        try:
+            # Search for business websites with contact information
+            contact_queries = [
+                f'"{role}" contact us email',
+                f'"{role}" professional services contact',
+                f'"{role}" business email address'
+            ]
+            
+            for query in contact_queries[:2]:
+                try:
+                    # Use Bing search API alternative
+                    search_url = f"https://www.bing.com/search?q={quote(query)}"
+                    
+                    response = self.session.get(search_url, timeout=10)
+                    if response.status_code == 200:
+                        # Extract URLs from search results
+                        url_pattern = r'href="(https?://[^"]+)"'
+                        urls = re.findall(url_pattern, response.text)
+                        
+                        # Process first few URLs
+                        for url in urls[:3]:
+                            if 'bing.com' not in url and 'microsoft.com' not in url:
+                                try:
+                                    page_leads = self._extract_emails_from_page(url, role)
+                                    leads.extend(page_leads)
+                                    if len(leads) >= 2:
+                                        break
+                                except Exception:
+                                    continue
+                    
+                    time.sleep(2)
+                    
+                except Exception as e:
+                    self.logger.warning(f"Error in contact page search: {e}")
+                    continue
+                    
+        except Exception as e:
+            self.logger.error(f"Error searching contact pages: {e}")
+            
+        return leads
+    
+    def _extract_contacts_from_directory(self, content: str, role: str, source_url: str) -> List[Dict[str, Any]]:
+        """Extract contact information from business directory content."""
+        leads = []
+        
+        try:
+            # Find email addresses in the content
+            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+            emails = re.findall(email_pattern, content)
+            
+            # Find potential names near emails
+            for email in emails[:3]:  # Limit to prevent spam
+                if self._is_professional_email(email):
+                    # Try to extract associated name and company
+                    name = self._extract_name_from_context(content, email, role)
+                    company = self._extract_company_from_context(content, email)
+                    
+                    lead = {
+                        'name': name or 'Professional Contact',
+                        'email': self.clean_email(email),
+                        'role': role,
+                        'source': 'Business Directory',
+                        'profile_url': source_url,
+                        'company': company or 'Unknown Company'
+                    }
+                    leads.append(lead)
+                    
+        except Exception as e:
+            self.logger.warning(f"Error extracting from directory content: {e}")
+            
         return leads
     
     def _extract_emails_from_page(self, url: str, role: str) -> List[Dict[str, Any]]:
