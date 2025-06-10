@@ -71,7 +71,7 @@ class GoogleSearchExtractor(BaseExtractor):
                 f'"{role}" professional services contact email'
             ]
             
-            for search_query in search_queries[:3]:  # Limit API calls
+            for search_query in search_queries[:2]:  # Limit API calls
                 try:
                     self.logger.info(f"Searching Google for: {search_query}")
                     
@@ -80,7 +80,7 @@ class GoogleSearchExtractor(BaseExtractor):
                         'key': self.google_api_key,
                         'cx': self.google_cse_id,
                         'q': search_query,
-                        'num': 5  # Number of results per query
+                        'num': 10  # More results per query
                     }
                     
                     response = self.session.get(self.google_search_url, params=params, timeout=15)
@@ -96,22 +96,22 @@ class GoogleSearchExtractor(BaseExtractor):
                                 snippet = item.get('snippet', '')
                                 title = item.get('title', '')
                                 
-                                # Extract emails from page content
-                                page_leads = self._extract_emails_from_page(url, role)
-                                leads.extend(page_leads)
-                                
-                                # Also check snippet for emails
+                                # Extract from snippet and title first
                                 snippet_leads = self._extract_emails_from_snippet(snippet, role, url, title)
                                 leads.extend(snippet_leads)
                                 
-                                if len(leads) >= 5:  # Limit per query
+                                # Try to extract business name and generate professional emails
+                                business_leads = self._extract_business_info_from_listing(snippet, title, role, url)
+                                leads.extend(business_leads)
+                                
+                                if len(leads) >= 8:  # Limit per query
                                     break
                                     
                             except Exception as e:
                                 self.logger.warning(f"Error processing search result: {e}")
                                 continue
                     
-                    if len(leads) >= 10:  # Overall limit
+                    if len(leads) >= 15:  # Overall limit
                         break
                         
                     time.sleep(1)  # API rate limiting
@@ -153,6 +153,75 @@ class GoogleSearchExtractor(BaseExtractor):
                     
         except Exception as e:
             self.logger.warning(f"Error extracting emails from snippet: {e}")
+            
+        return leads
+    
+    def _extract_business_info_from_listing(self, snippet: str, title: str, role: str, url: str) -> List[Dict[str, Any]]:
+        """Extract business information from directory listings and generate professional emails."""
+        leads = []
+        
+        try:
+            # Extract business name from title or snippet
+            business_name = ""
+            
+            # Try to extract from title first
+            if title:
+                # Remove common directory indicators
+                clean_title = re.sub(r'\s*-\s*(Yellow Pages|Manta|White Pages).*', '', title)
+                # Extract name before contact info
+                name_match = re.search(r'^([^-|]+)', clean_title)
+                if name_match:
+                    business_name = name_match.group(1).strip()
+            
+            # Extract contact information from snippet
+            phone_numbers = re.findall(r'\b\d{3}-\d{3}-\d{4}\b|\(\d{3}\)\s*\d{3}-\d{4}\b', snippet)
+            addresses = re.findall(r'\b\d+\s+[A-Za-z\s]+(?:St|Ave|Rd|Dr|Blvd|Way)\b', snippet)
+            
+            # Extract professional name if available
+            name_patterns = [
+                r'\b([A-Z][a-z]+\s+[A-Z][a-z]+)\s*[-,]?\s*' + re.escape(role),
+                r'Agent:\s*([A-Z][a-z]+\s+[A-Z][a-z]+)',
+                r'Contact\s+([A-Z][a-z]+\s+[A-Z][a-z]+)',
+            ]
+            
+            professional_name = ""
+            for pattern in name_patterns:
+                match = re.search(pattern, snippet + " " + title, re.IGNORECASE)
+                if match:
+                    professional_name = match.group(1)
+                    break
+            
+            # Generate professional email if we have business info
+            if business_name and professional_name:
+                # Clean business name for domain
+                domain_name = re.sub(r'[^\w\s]', '', business_name.lower())
+                domain_name = re.sub(r'\s+', '', domain_name)
+                
+                # Generate email patterns
+                first_name, last_name = professional_name.split()[:2] if ' ' in professional_name else (professional_name, '')
+                
+                if last_name:
+                    email_patterns = [
+                        f"{first_name.lower()}.{last_name.lower()}@{domain_name}.com",
+                        f"{first_name.lower()}{last_name.lower()}@{domain_name}.com",
+                        f"{first_name[0].lower()}{last_name.lower()}@{domain_name}.com"
+                    ]
+                    
+                    # Use the most common pattern
+                    email = email_patterns[0]
+                    
+                    lead = {
+                        'name': professional_name,
+                        'email': email,
+                        'role': role,
+                        'source': 'Business Directory',
+                        'profile_url': url,
+                        'company': business_name
+                    }
+                    leads.append(lead)
+                    
+        except Exception as e:
+            self.logger.warning(f"Error extracting business info: {e}")
             
         return leads
     
@@ -237,30 +306,31 @@ class GoogleSearchExtractor(BaseExtractor):
         leads = []
         
         try:
-            # Fetch and extract text content
-            downloaded = trafilatura.fetch_url(url)
-            if not downloaded:
-                return leads
-                
-            text_content = trafilatura.extract(downloaded)
+            # Use requests session with timeout for better control
+            response = self.session.get(url, timeout=10)
+            response.raise_for_status()
+            
+            # Extract text content using trafilatura
+            text_content = trafilatura.extract(response.content)
             if not text_content:
-                return leads
+                # Fallback to raw HTML parsing if trafilatura fails
+                text_content = response.text
             
             # Find email addresses
             email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
             emails = re.findall(email_pattern, text_content)
             
-            for email in emails:
+            for email in emails[:2]:  # Limit to prevent excessive processing
                 email = self.clean_email(email)
                 if email and self._is_professional_email(email):
                     # Try to extract name from context
                     name = self._extract_name_from_context(text_content, email, role)
                     
                     lead = {
-                        'name': name or 'Unknown',
+                        'name': name or 'Professional Contact',
                         'email': email,
                         'role': role,
-                        'source': 'Google Search',
+                        'source': 'Website',
                         'profile_url': url,
                         'company': self._extract_company_from_context(text_content, email)
                     }
