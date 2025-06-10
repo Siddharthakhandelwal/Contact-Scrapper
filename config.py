@@ -1,7 +1,3 @@
-"""
-Configuration settings for the email lead extractor.
-"""
-
 import os
 from datetime import datetime
 
@@ -42,8 +38,8 @@ DEFAULT_DELAY_BETWEEN_SEARCHES = 2.0  # seconds
 DEFAULT_MAX_LEADS_PER_ROLE = 10
 
 # API Keys (if needed)
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
-GOOGLE_CSE_ID = os.getenv("GOOGLE_CSE_ID", "")
+GOOGLE_API_KEY = ""
+GOOGLE_CSE_ID = ""
 
 # User agent for web requests
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"

@@ -1,37 +1,130 @@
-# Professional Email Lead Extractor
+# Email Lead Harvester and Sender
 
-A Python command-line tool for extracting and managing professional email leads based on specific roles. The tool searches multiple sources, validates emails, prevents duplicates, and stores results in CSV format.
+A comprehensive tool for extracting email leads from various sources and sending personalized emails to them. This project consists of two main components: an email lead extractor and an email sender.
 
 ## Features
 
-- **Multi-source extraction**: Searches Google and LinkedIn for professional contacts
-- **Role-based filtering**: Targets specific professional roles (Real Estate, Finance, Business, etc.)
-- **Duplicate prevention**: Automatically skips existing leads
-- **Email validation**: Ensures high-quality, professional email addresses
-- **CSV storage**: Organized data storage with comprehensive lead information
-- **Progress tracking**: Real-time feedback during extraction process
-- **Error handling**: Robust error handling with detailed logging
-- **Rate limiting**: Respectful scraping with configurable delays
+### Email Lead Extractor
+- Extracts email leads from multiple sources
+- Categorizes leads by professional roles
+- Stores leads in a structured CSV format
+- Includes verification status for each lead
+- Supports various professional categories:
+  - Real Estate professionals
+  - Business coaches and entrepreneurs
+  - Banking & Finance professionals
+  - And many more
 
-## Installation
+### Email Sender
+- Sends personalized emails to extracted leads
+- Tracks email sending status
+- Implements rate limiting to prevent spam flags
+- Supports bulk email sending with configurable limits
+- Maintains detailed logs of email sending activities
 
-1. **Clone or download the project files**
+## Project Structure
 
-2. **Install required dependencies**:
-   ```bash
-   pip install requests beautifulsoup4 pandas trafilatura
-   ```
+```
+EmailHarvester/
+├── email_lead_extractor.py    # Main script for extracting leads
+├── email_sender.py           # Script for sending emails to leads
+├── config.py                 # Configuration settings
+├── email_leads.csv          # Database of extracted leads
+├── extractors/              # Directory containing extractor modules
+├── utils/                   # Utility functions
+└── logs/                    # Log files directory
+```
 
-3. **Create necessary directories**:
-   ```bash
-   mkdir logs
-   ```
+## Quick Installation
+
+Install all required packages with a single command:
+```bash
+pip3 install requests beautifulsoup4 pandas trafilatura
+```
+
+## Configuration
+
+### Email Sender Configuration
+Edit the `email_sender.py` file to configure your email settings:
+
+```python
+SMTP_SERVER = "smtp.gmail.com"  # Your SMTP server
+SMTP_PORT = 587                 # Your SMTP port
+SENDER_EMAIL = "your-email@gmail.com"  # Your email address
+SENDER_PASSWORD = "your-app-password"  # Your email password or app password
+```
+
+For Gmail users:
+1. Enable 2-factor authentication in your Google Account
+2. Generate an App Password:
+   - Go to Google Account Settings
+   - Security
+   - 2-Step Verification
+   - App Passwords
+   - Generate a new app password for "Mail"
 
 ## Usage
 
-### Basic Usage
-
-Run the script to extract leads for all predefined roles:
-
+### Extracting Leads
+Run the lead extractor:
 ```bash
 python email_lead_extractor.py
+```
+
+This will:
+- Search for leads based on configured roles
+- Extract and verify email addresses
+- Save leads to `email_leads.csv`
+
+### Sending Emails
+Run the email sender:
+```bash
+python email_sender.py
+```
+
+This will:
+- Process up to 450 unsent leads
+- Send personalized emails
+- Update the CSV with sending status
+- Log all activities
+
+## CSV Structure
+
+The `email_leads.csv` file contains the following columns:
+- name: Lead's name
+- email: Lead's email address
+- role: Professional role
+- source: Where the lead was found
+- profile_url: URL to lead's profile
+- company: Company name
+- date_added: When the lead was added
+- verified: Email verification status
+- email_status: Email sending status ("Sent" or "Not Sent")
+- email_sent_date: When the email was sent
+
+## Best Practices
+
+1. **Rate Limiting**
+   - The script includes a 2-second delay between emails
+   - Adjust this delay based on your email provider's limits
+
+2. **Email Content**
+   - Customize the email template in `email_sender.py`
+   - Personalize messages based on the lead's role and company
+   - Avoid spam trigger words
+
+3. **Monitoring**
+   - Check the logs directory for detailed activity logs
+   - Monitor email sending status in the CSV file
+   - Review failed email attempts
+
+## Security Notes
+
+1. Never commit sensitive information like API keys or passwords
+2. Use environment variables for sensitive data
+3. Regularly update your app passwords
+4. Monitor your email account for any suspicious activity
+
+## Support
+
+For support, please open an issue in the GitHub repository or contact the maintainers.

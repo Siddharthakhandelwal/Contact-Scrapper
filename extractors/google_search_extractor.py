@@ -1,7 +1,3 @@
-"""
-Google Search-based email extractor.
-"""
-
 import requests
 import re
 import time
@@ -22,8 +18,8 @@ class GoogleSearchExtractor(BaseExtractor):
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         })
-        self.google_api_key = os.getenv("GOOGLE_API_KEY", "")
-        self.google_cse_id = os.getenv("GOOGLE_CSE_ID", "")
+        self.google_api_key = ""
+        self.google_cse_id = ""
         self.google_search_url = "https://www.googleapis.com/customsearch/v1"
         
     def extract_emails_for_role(self, role: str, max_results: int = 10) -> List[Dict[str, Any]]:

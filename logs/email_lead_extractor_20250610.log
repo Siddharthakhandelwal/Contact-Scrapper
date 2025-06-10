@@ -1,0 +1,123 @@
+2025-06-10 12:49:14,774 - email_lead_extractor - INFO - Starting lead extraction for 1 roles
+2025-06-10 12:49:14,774 - email_lead_extractor - INFO - Searching for role: Real Estate Agent
+2025-06-10 13:00:51,052 - email_lead_extractor - INFO - Starting lead extraction for 1 roles
+2025-06-10 13:00:51,052 - email_lead_extractor - INFO - Searching for role: Real Estate Agent
+2025-06-10 13:01:45,311 - email_lead_extractor - INFO - Starting lead extraction for 1 roles
+2025-06-10 13:01:45,312 - email_lead_extractor - INFO - Searching for role: Real Estate Agent
+2025-06-10 13:02:19,913 - email_lead_extractor - INFO - Starting lead extraction for 1 roles
+2025-06-10 13:02:19,914 - email_lead_extractor - INFO - Searching for role: Real Estate Agent
+2025-06-10 13:03:12,160 - email_lead_extractor - INFO - Starting lead extraction for 1 roles
+2025-06-10 13:03:12,162 - email_lead_extractor - INFO - Searching for role: Real Estate Agent
+2025-06-10 13:03:16,828 - email_lead_extractor - INFO - New lead added: darlene.sterling@darlenesterlingrealestateagent.com
+2025-06-10 13:03:16,829 - email_lead_extractor - INFO - New lead added: keller.williams@tarahubbardkellerwilliamsrealestateagent.com
+2025-06-10 13:03:16,830 - email_lead_extractor - INFO - New lead added: sarah.today@sarahtobie.com
+2025-06-10 13:03:16,831 - email_lead_extractor - INFO - New lead added: great.best@remax.com
+2025-06-10 13:03:16,832 - email_lead_extractor - INFO - New lead added: paul.starr@paulstarr.com
+2025-06-10 13:03:28,573 - email_lead_extractor - INFO - Starting lead extraction for 1 roles
+2025-06-10 13:03:28,574 - email_lead_extractor - INFO - Searching for role: Real Estate Agent
+2025-06-10 13:03:32,958 - email_lead_extractor - INFO - Duplicate email skipped: darlene.sterling@darlenesterlingrealestateagent.com
+2025-06-10 13:03:32,958 - email_lead_extractor - INFO - Duplicate email skipped: keller.williams@tarahubbardkellerwilliamsrealestateagent.com
+2025-06-10 13:03:32,959 - email_lead_extractor - INFO - Duplicate email skipped: sarah.today@sarahtobie.com
+2025-06-10 13:03:42,324 - email_lead_extractor - INFO - Starting lead extraction for 1 roles
+2025-06-10 13:03:42,325 - email_lead_extractor - INFO - Searching for role: Financial Advisor
+2025-06-10 13:03:46,784 - email_lead_extractor - INFO - New lead added: edward.jones@edwardjones.com
+2025-06-10 13:03:46,784 - email_lead_extractor - INFO - Duplicate email skipped: edward.jones@edwardjones.com
+2025-06-10 13:03:46,787 - email_lead_extractor - INFO - New lead added: financial.advising@edwardjones.com
+2025-06-10 13:04:00,238 - email_lead_extractor - INFO - Starting lead extraction for 3 roles
+2025-06-10 13:04:00,239 - email_lead_extractor - INFO - Searching for role: Business Coach
+2025-06-10 13:04:04,684 - email_lead_extractor - INFO - New lead added: details.reviews@actioncoach.com
+2025-06-10 13:04:04,685 - email_lead_extractor - INFO - New lead added: life.and@riaaichourcoachingunioncitynj07087mantacom.com
+2025-06-10 13:04:05,685 - email_lead_extractor - INFO - Searching for role: Digital Marketer
+2025-06-10 18:40:00,075 - email_lead_extractor - INFO - Starting lead extraction for 68 roles
+2025-06-10 18:40:00,075 - email_lead_extractor - INFO - Searching for role: Realtor
+2025-06-10 18:42:51,368 - email_lead_extractor - INFO - Starting lead extraction for 68 roles
+2025-06-10 18:42:51,368 - email_lead_extractor - INFO - Searching for role: Realtor
+2025-06-10 18:43:23,717 - email_lead_extractor - INFO - Starting lead extraction for 68 roles
+2025-06-10 18:43:23,717 - email_lead_extractor - INFO - Searching for role: Realtor
+2025-06-10 18:43:34,220 - email_lead_extractor - INFO - New lead added: laura.bolton@laurabolton.com
+2025-06-10 18:43:34,220 - email_lead_extractor - INFO - New lead added: jim.bradley@jimbradleyrealtor.com
+2025-06-10 18:43:34,221 - email_lead_extractor - INFO - New lead added: board.of@egyptianboardofrealtor.com
+2025-06-10 18:43:34,221 - email_lead_extractor - INFO - New lead added: john.greene@johngreenerealtor.com
+2025-06-10 18:43:34,221 - email_lead_extractor - INFO - New lead added: lynn.semer@lynnsemerrealtor.com
+2025-06-10 18:43:34,221 - email_lead_extractor - INFO - New lead added: stacy.hartgerink@homerealestate.com
+2025-06-10 18:43:34,222 - email_lead_extractor - INFO - New lead added: varnell.owens@varnellowensrealtor.com
+2025-06-10 18:43:34,222 - email_lead_extractor - INFO - New lead added: full.service@barbarahoyerealtor.com
+2025-06-10 18:43:34,222 - email_lead_extractor - INFO - Duplicate email skipped: laura.bolton@laurabolton.com
+2025-06-10 18:43:34,222 - email_lead_extractor - INFO - Duplicate email skipped: jim.bradley@jimbradleyrealtor.com
+2025-06-10 18:43:36,223 - email_lead_extractor - INFO - Searching for role: Real Estate Agent
+2025-06-10 18:43:46,442 - email_lead_extractor - INFO - Duplicate email skipped: darlene.sterling@darlenesterlingrealestateagent.com
+2025-06-10 18:43:46,443 - email_lead_extractor - INFO - Duplicate email skipped: keller.williams@tarahubbardkellerwilliamsrealestateagent.com
+2025-06-10 18:43:46,443 - email_lead_extractor - INFO - Duplicate email skipped: sarah.today@sarahtobie.com
+2025-06-10 18:43:46,443 - email_lead_extractor - INFO - Duplicate email skipped: great.best@remax.com
+2025-06-10 18:43:46,443 - email_lead_extractor - INFO - Duplicate email skipped: paul.starr@paulstarr.com
+2025-06-10 18:43:46,444 - email_lead_extractor - INFO - New lead added: usadvertise.with@madhavsawhneyrealestate.com
+2025-06-10 18:43:46,444 - email_lead_extractor - INFO - New lead added: co.offers@rqrealtyco.com
+2025-06-10 18:43:46,444 - email_lead_extractor - INFO - New lead added: usadvertise.with@junemakisparealtor.com
+2025-06-10 18:43:46,445 - email_lead_extractor - INFO - New lead added: craig.schreiber@craigschreibercentury21realestateagentinportagewi.com
+2025-06-10 18:43:46,445 - email_lead_extractor - INFO - Duplicate email skipped: darlene.sterling@darlenesterlingrealestateagent.com
+2025-06-10 18:43:48,445 - email_lead_extractor - INFO - Searching for role: Real Estate Broker
+2025-06-10 18:43:57,870 - email_lead_extractor - INFO - New lead added: ty.wallace@lauradiazrealtor.com
+2025-06-10 18:43:57,871 - email_lead_extractor - INFO - New lead added: ciana.calabrese@christinecianacalabreserealestatebrokerassociate.com
+2025-06-10 18:43:57,871 - email_lead_extractor - INFO - New lead added: james.cox@reecenichols.com
+2025-06-10 18:43:57,872 - email_lead_extractor - INFO - New lead added: earned.her@oakowskypropertiesinc.com
+2025-06-10 18:43:57,872 - email_lead_extractor - INFO - New lead added: usadvertise.with@mobilenotaryservice.com
+2025-06-10 18:43:57,872 - email_lead_extractor - INFO - New lead added: usadvertise.with@burchkiserrealestatellc.com
+2025-06-10 18:43:57,872 - email_lead_extractor - INFO - New lead added: denny.stouffer@stouffersauctionco.com
+2025-06-10 18:43:57,873 - email_lead_extractor - INFO - New lead added: service.commercial@full.com
+2025-06-10 18:43:57,873 - email_lead_extractor - INFO - Duplicate email skipped: ty.wallace@lauradiazrealtor.com
+2025-06-10 18:43:57,873 - email_lead_extractor - INFO - Duplicate email skipped: ciana.calabrese@christinecianacalabreserealestatebrokerassociate.com
+2025-06-10 18:43:59,873 - email_lead_extractor - INFO - Searching for role: Real Estate Investor
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - New lead added: to.seasoned@coastalrealtyhomer.com
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - New lead added: us.to@classactpropertymanagementllc.com
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - New lead added: form.now@fireshieldwest.com
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - New lead added: landlord.and@watchfuleyeinvestigationsllc.com
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - New lead added: usadvertise.with@best30jymonkrealestateschoolincharlottencwithreviews.com
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - New lead added: details.reviews@justinfishmanrealestatesuccesscoach.com
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - New lead added: an.active@jordanbennettassociatesrealestateteam.com
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - New lead added: details.reviews@roycerealtypropertymanagement.com
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - Duplicate email skipped: to.seasoned@coastalrealtyhomer.com
+2025-06-10 18:44:09,663 - email_lead_extractor - INFO - Duplicate email skipped: us.to@classactpropertymanagementllc.com
+2025-06-10 18:44:11,663 - email_lead_extractor - INFO - Searching for role: Property Manager
+2025-06-10 18:44:22,067 - email_lead_extractor - INFO - New lead added: taylor.long@taylorlongterm.com
+2025-06-10 18:44:22,067 - email_lead_extractor - INFO - New lead added: our.primary@macepropertymanagement.com
+2025-06-10 18:44:22,068 - email_lead_extractor - INFO - New lead added: with.your@rizepropertymanagement.com
+2025-06-10 18:44:22,068 - email_lead_extractor - INFO - New lead added: quicken.rental@oboylepropertymanagement.com
+2025-06-10 18:44:22,069 - email_lead_extractor - INFO - New lead added: contact.the@extraatticselfstoragedurantrd.com
+2025-06-10 18:44:22,069 - email_lead_extractor - INFO - New lead added: usadvertise.with@zhproperties.com
+2025-06-10 18:44:22,069 - email_lead_extractor - INFO - New lead added: our.icon@iconrealtyservices.com
+2025-06-10 18:44:22,070 - email_lead_extractor - INFO - New lead added: and.qualified@full.com
+2025-06-10 18:44:22,070 - email_lead_extractor - INFO - Duplicate email skipped: taylor.long@taylorlongterm.com
+2025-06-10 18:44:22,070 - email_lead_extractor - INFO - Duplicate email skipped: our.primary@macepropertymanagement.com
+2025-06-10 18:44:24,071 - email_lead_extractor - INFO - Searching for role: Real Estate Developer
+2025-06-10 18:44:38,766 - email_lead_extractor - INFO - New lead added: the.sophisticated@carosellaassociatespc.com
+2025-06-10 18:44:38,767 - email_lead_extractor - INFO - New lead added: details.reviews@poconodreamscom.com
+2025-06-10 18:44:38,767 - email_lead_extractor - INFO - New lead added: details.reviews@akdevelopmentcorplocustgroveva22508mantacom.com
+2025-06-10 18:44:38,767 - email_lead_extractor - INFO - New lead added: us.about@realestateinvestments.com
+2025-06-10 18:44:38,767 - email_lead_extractor - INFO - Duplicate email skipped: the.sophisticated@carosellaassociatespc.com
+2025-06-10 18:44:38,767 - email_lead_extractor - INFO - Duplicate email skipped: details.reviews@poconodreamscom.com
+2025-06-10 18:44:38,767 - email_lead_extractor - INFO - Duplicate email skipped: details.reviews@akdevelopmentcorplocustgroveva22508mantacom.com
+2025-06-10 18:44:38,767 - email_lead_extractor - INFO - Duplicate email skipped: us.about@realestateinvestments.com
+2025-06-10 18:44:38,768 - email_lead_extractor - INFO - Duplicate email skipped: the.sophisticated@carosellaassociatespc.com
+2025-06-10 18:44:38,768 - email_lead_extractor - INFO - Duplicate email skipped: details.reviews@poconodreamscom.com
+2025-06-10 18:44:40,768 - email_lead_extractor - INFO - Searching for role: Mortgage Broker
+2025-06-10 18:44:50,711 - email_lead_extractor - INFO - New lead added: by.appointment@firstmortgageresource.com
+2025-06-10 18:44:50,711 - email_lead_extractor - INFO - New lead added: winston.ii@williamsfrederickwinstoniimortgagebroker.com
+2025-06-10 18:44:50,712 - email_lead_extractor - INFO - New lead added: us.today@diamondmortgageservicesinc.com
+2025-06-10 18:44:50,712 - email_lead_extractor - INFO - New lead added: usadvertise.with@best1maymaanresearchinhollywoodfl.com
+2025-06-10 18:44:50,712 - email_lead_extractor - INFO - New lead added: chad@eaglemtgcompany.com
+2025-06-10 18:44:50,713 - email_lead_extractor - INFO - New lead added: the.best@realestatefunding.com
+2025-06-10 18:44:50,713 - email_lead_extractor - INFO - New lead added: largest.independent@pingmortgagecompany.com
+2025-06-10 18:44:50,713 - email_lead_extractor - INFO - New lead added: snap.mortgage@loriedodsonmottomortgagealliancelittlerockar72212.com
+2025-06-10 18:44:50,713 - email_lead_extractor - INFO - Duplicate email skipped: by.appointment@firstmortgageresource.com
+2025-06-10 18:44:50,713 - email_lead_extractor - INFO - Duplicate email skipped: winston.ii@williamsfrederickwinstoniimortgagebroker.com
+2025-06-10 18:44:52,714 - email_lead_extractor - INFO - Searching for role: Loan Officer
+2025-06-10 18:45:02,819 - email_lead_extractor - INFO - New lead added: phil.caulfield@philcaulfield.com
+2025-06-10 18:45:02,819 - email_lead_extractor - INFO - New lead added: pnc.mortgage@davidyzhou.com
+2025-06-10 18:45:02,819 - email_lead_extractor - INFO - New lead added: pnc.mortgage@nicholasjordan.com
+2025-06-10 18:45:02,820 - email_lead_extractor - INFO - New lead added: regions.mortgage@mariacaram.com
+2025-06-10 18:45:02,820 - email_lead_extractor - INFO - New lead added: gabriel.at@gabrielwomackatratenmls1176751.com
+2025-06-10 18:45:02,820 - email_lead_extractor - INFO - New lead added: pnc.mortgage@jasoncolangelo.com
+2025-06-10 18:45:02,820 - email_lead_extractor - INFO - New lead added: pnc.mortgage@johnpgarrett.com
+2025-06-10 18:45:02,820 - email_lead_extractor - INFO - New lead added: bank.mortgage@vanessaburson.com
+2025-06-10 18:45:02,820 - email_lead_extractor - INFO - New lead added: branch.manager@woodfordstatebankhome.com
+2025-06-10 18:45:02,821 - email_lead_extractor - INFO - Duplicate email skipped: phil.caulfield@philcaulfield.com
