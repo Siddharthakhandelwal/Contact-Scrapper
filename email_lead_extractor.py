@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-"""
-Professional Email Lead Extractor
-A command-line tool for extracting and managing professional email leads based on specific roles.
-"""
-
 import argparse
 import sys
 import time
