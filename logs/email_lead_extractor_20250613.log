@@ -1,0 +1,4 @@
+2025-06-13 22:53:54,965 - email_lead_extractor - INFO - Starting lead extraction for 68 roles
+2025-06-13 22:53:54,965 - email_lead_extractor - INFO - Searching for role: Realtor
+2025-06-13 23:00:43,005 - country_based_email_extractor - INFO - Starting lead extraction for 68 roles in 11 target countries
+2025-06-13 23:00:43,005 - country_based_email_extractor - INFO - Searching for role: Realtor

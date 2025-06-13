@@ -7,6 +7,7 @@ A comprehensive tool for extracting email leads from various sources and sending
 ### Email Lead Extractor
 - Extracts email leads from multiple sources
 - Categorizes leads by professional roles
+- Filters leads by specific countries
 - Stores leads in a structured CSV format
 - Includes verification status for each lead
 - Supports various professional categories:
@@ -14,6 +15,23 @@ A comprehensive tool for extracting email leads from various sources and sending
   - Business coaches and entrepreneurs
   - Banking & Finance professionals
   - And many more
+
+### Country-Based Filtering
+- Pre-configured target countries:
+  - United States
+  - Canada
+  - United Kingdom
+  - Australia
+  - New Zealand
+  - Germany
+  - Netherlands
+  - France
+  - United Arab Emirates
+  - Kuwait
+  - Bahrain
+- Intelligent country name matching
+- Detailed country-wise statistics
+- Automatic location detection and filtering
 
 ### Email Sender
 - Sends personalized emails to extracted leads
@@ -26,20 +44,21 @@ A comprehensive tool for extracting email leads from various sources and sending
 
 ```
 EmailHarvester/
-├── email_lead_extractor.py    # Main script for extracting leads
-├── email_sender.py           # Script for sending emails to leads
-├── config.py                 # Configuration settings
-├── email_leads.csv          # Database of extracted leads
-├── extractors/              # Directory containing extractor modules
-├── utils/                   # Utility functions
-└── logs/                    # Log files directory
+├── email_lead_extractor.py           # Original lead extractor
+├── country_based_email_extractor.py  # Country-filtered lead extractor
+├── email_sender.py                   # Script for sending emails to leads
+├── config.py                         # Configuration settings
+├── email_leads.csv                   # Database of extracted leads
+├── extractors/                       # Directory containing extractor modules
+├── utils/                            # Utility functions
+└── logs/                             # Log files directory
 ```
 
 ## Quick Installation
 
 Install all required packages with a single command:
 ```bash
-pip3 install requests beautifulsoup4 pandas trafilatura
+pip3 install requests beautifulsoup4 pandas trafilatura geopy
 ```
 
 ## Configuration
@@ -65,16 +84,39 @@ For Gmail users:
 
 ## Usage
 
-### Extracting Leads
-Run the lead extractor:
+### Extracting Leads (Country-Based)
+Run the country-based lead extractor:
 ```bash
-python email_lead_extractor.py
+python country_based_email_extractor.py
 ```
 
 This will:
 - Search for leads based on configured roles
+- Filter leads by predefined target countries
 - Extract and verify email addresses
 - Save leads to `email_leads.csv`
+- Show detailed country-wise statistics
+
+Command-line options:
+```bash
+# List all available roles
+python country_based_email_extractor.py --list-roles
+
+# Search for specific roles
+python country_based_email_extractor.py --roles "Real Estate Agent" "Property Manager"
+
+# Adjust number of leads per role
+python country_based_email_extractor.py --max-leads 20
+
+# Adjust delay between searches
+python country_based_email_extractor.py --delay 3.0
+```
+
+### Original Lead Extractor
+Run the original lead extractor:
+```bash
+python email_lead_extractor.py
+```
 
 ### Sending Emails
 Run the email sender:
@@ -97,6 +139,8 @@ The `email_leads.csv` file contains the following columns:
 - source: Where the lead was found
 - profile_url: URL to lead's profile
 - company: Company name
+- location: Lead's location
+- country: Detected country
 - date_added: When the lead was added
 - verified: Email verification status
 - email_status: Email sending status ("Sent" or "Not Sent")
@@ -117,6 +161,7 @@ The `email_leads.csv` file contains the following columns:
    - Check the logs directory for detailed activity logs
    - Monitor email sending status in the CSV file
    - Review failed email attempts
+   - Track country-wise lead distribution
 
 ## Security Notes
 

@@ -9,5 +9,6 @@ certifi>=2023.7.22
 charset-normalizer>=3.3.0
 idna>=3.4
 lxml>=4.9.0
-soupsieve>=2.5 
+soupsieve>=2.5
+geopy>=2.4.0
 #pip3 install requests beautifulsoup4 pandas trafilatura
